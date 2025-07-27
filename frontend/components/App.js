@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Shield, Upload, FileText, AlertTriangle, CheckCircle, XCircle, Loader } from 'lucide-react';
-import TextInput from './components/TextInput';
-import ImageUpload from './components/ImageUpload';
-import ResultsPanel from './components/ResultsPanel';
-import Disclaimer from './components/Disclaimer';
+import TextInput from './TextInput';
+import ImageUpload from './ImageUpload';
+import ResultsPanel from './ResultsPanel';
+import Disclaimer from './Disclaimer';
 
 function App() {
   const [inputType, setInputType] = useState('text'); // 'text' or 'image'

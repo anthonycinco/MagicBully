@@ -66,8 +66,8 @@ start_frontend() {
     npm install
     
     # Start frontend server
-    echo "🚀 Starting React frontend on http://localhost:3000"
-    npm start &
+    echo "🚀 Starting Next.js frontend on http://localhost:3000"
+    npm run dev &
     FRONTEND_PID=$!
     cd ..
 }

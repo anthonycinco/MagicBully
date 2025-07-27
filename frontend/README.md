@@ -1,6 +1,6 @@
 # MagicBully Frontend
 
-A React-based frontend for the MagicBully AI cyberbullying detection system. This application provides a clean, user-friendly interface for analyzing text and images for harmful content.
+A Next.js-based frontend for the MagicBully AI cyberbullying detection system. This application provides a clean, user-friendly interface for analyzing text and images for harmful content.
 
 ## Features
 
@@ -12,6 +12,7 @@ A React-based frontend for the MagicBully AI cyberbullying detection system. Thi
 
 ## Technologies Used
 
+- **Next.js 14**: React framework with App Router
 - **React 18**: Modern React with hooks and functional components
 - **Tailwind CSS**: Utility-first CSS framework for styling
 - **Tesseract.js**: OCR library for text extraction from images
@@ -40,7 +41,7 @@ A React-based frontend for the MagicBully AI cyberbullying detection system. Thi
 
 3. Start the development server:
    ```bash
-   npm start
+   npm run dev
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) to view the application.
@@ -49,32 +50,61 @@ A React-based frontend for the MagicBully AI cyberbullying detection system. Thi
 
 ```bash
 npm run build
+npm start
 ```
 
-This creates an optimized production build in the `build` folder.
+This creates an optimized production build and starts the production server.
 
 ## Project Structure
 
 ```
-src/
-├── components/
-│   ├── TextInput.js          # Text input form component
-│   ├── ImageUpload.js        # Image upload with OCR
-│   ├── ResultsPanel.js       # Analysis results display
-│   └── Disclaimer.js         # Ethical disclaimers
-├── App.js                    # Main application component
-├── index.js                  # React entry point
-└── index.css                 # Global styles and Tailwind imports
+frontend/
+├── pages/                    # Next.js pages
+│   ├── _app.js              # App wrapper
+│   ├── _document.js         # Custom document
+│   └── index.js             # Home page
+├── components/               # React components
+│   ├── App.js               # Main application component
+│   ├── TextInput.js         # Text input form component
+│   ├── ImageUpload.js       # Image upload with OCR
+│   ├── ResultsPanel.js      # Analysis results display
+│   └── Disclaimer.js        # Ethical disclaimers
+├── styles/                   # Global styles
+│   └── globals.css          # Tailwind CSS and custom styles
+├── public/                   # Static assets
+├── next.config.js           # Next.js configuration
+├── tailwind.config.js       # Tailwind CSS configuration
+├── postcss.config.js        # PostCSS configuration
+├── package.json             # Dependencies and scripts
+└── README.md               # This file
 ```
 
 ## API Integration
 
-The frontend communicates with the backend API at `http://localhost:5000` (configured via proxy in package.json).
+The frontend communicates with the backend API through Next.js API routes and rewrites.
 
-### Endpoints Used
+### Environment Variables
 
-- `POST /api/classify-text`: Submit text for cyberbullying analysis
-- `POST /api/feedback`: Submit user feedback on analysis results (future)
+Create a `.env.local` file in the frontend directory:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+
+### API Rewrites
+
+The `next.config.js` file includes API rewrites to proxy requests to the backend:
+
+```javascript
+async rewrites() {
+  return [
+    {
+      source: '/api/:path*',
+      destination: `${process.env.NEXT_PUBLIC_API_URL}/api/:path*`,
+    },
+  ];
+}
+```
 
 ## Key Features
 
@@ -121,15 +151,15 @@ The application uses Tailwind CSS with custom color schemes:
 
 ### Available Scripts
 
-- `npm start`: Start development server
-- `npm build`: Build for production
-- `npm test`: Run test suite
-- `npm eject`: Eject from Create React App (not recommended)
+- `npm run dev`: Start development server
+- `npm run build`: Build for production
+- `npm start`: Start production server
+- `npm run lint`: Run ESLint
 
 ### Code Style
 
 - Use functional components with hooks
-- Follow React best practices
+- Follow Next.js best practices
 - Maintain consistent naming conventions
 - Include proper error handling
 
