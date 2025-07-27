@@ -1,4 +1,4 @@
-import React from 'react';
+    import React from 'react';
 import { Send, Loader } from 'lucide-react';
 
 const TextInput = ({ value, onChange, onSubmit, isAnalyzing }) => {
